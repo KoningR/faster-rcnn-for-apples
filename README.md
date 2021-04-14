@@ -21,7 +21,7 @@ The output of the RPN is, for every feature in the feature map and every corresp
 
 The first step of the R-CNN is Region Of Interest pooling (ROI). This is done in order to ensure equal dimensions of the inputs to the CNN. Recall that RPN's proposals include regressions, or suggestions on how to adjust the anchor's shape and location. These proposals have to be mapped from pixel coordinates to feature coordinates. The proposals in pixel space refer to sub-images in the original image of varying sizes, whereas the feature coordinates can be at most 14 x 14, because that's how many features we start with. In order map these coordinates, we have to analyse how the anchors overlap the feature map boxes; a visualisation of the overlap is presented below. The yellow boxes show the min and max feature coordinates we attributed to that specific region proposal (the blue box).
 
-![roi_mapping](https://github.com/koningr/faster-rcnn-for-apples/blob/main/images/roi_features.jpg)
+![roi_mapping](https://github.com/koningr/faster-rcnn-for-apples/blob/main/images/roi_features.png)
 
 
 These feature map boxes (still of varying sizes) are now max-pooled to all adhere to a fixed size of 7 x 7, still of depth 512. The R-CNN consists of 2 fully connected layers so we need to flatten the 7 x 7 x 512 boxes to 1 x 25088 inputs. These are then fed to the 2 fully connected layers which produce an output of 2 entries, corresponding to background and apple probabilities.
@@ -44,11 +44,11 @@ This first experiment only considers the region proposals provided as output by 
 
 The second experiment takes the regressions of the alleged foreground boxes into account. From the results, displayed in the figure below (2), it becomes apparent that the RPN is also able to learn the anchor regressions when it overfits to one image.
 
-![overfit_1](https://github.com/koningr/faster-rcnn-for-apples/blob/main/images/overfit1.jpg)
-![overfit_2](https://github.com/koningr/faster-rcnn-for-apples/blob/main/images/overfit2.jpg)
+![overfit_1](https://github.com/koningr/faster-rcnn-for-apples/blob/main/images/overfit1.png)
+![overfit_2](https://github.com/koningr/faster-rcnn-for-apples/blob/main/images/overfit2.png)
 
 In order to verify functionality of the entire pipeline, thus including the R-CNN, we want to perform another overfitting test. Here we show that the box that the R-CNN attributes the highest probability of capturing an apple, actually fits the apple quite well.
-![overfit_3](https://github.com/koningr/faster-rcnn-for-apples/blob/main/images/overfit3.jpg)
+![overfit_3](https://github.com/koningr/faster-rcnn-for-apples/blob/main/images/overfit3.png)
 
 ### Training 
 
@@ -58,14 +58,14 @@ Due to not having access to required resources we regarded the procedure describ
 
 In this section we analyze the outputs of images in which the network claims to have found an apple with high probability (>80%). In these images we drew the 5 boxes to which the R-CNN attributes the highest probability of containing an apple. The results are displayed below. In some images (the first 4) the detector has failed miserably. To the contrary, in other images (the last 4) the detector seems to have learned how to detect an apple properly.
 
-![bad_1](https://github.com/koningr/faster-rcnn-for-apples/blob/main/images/bad1.jpg)
-![bad_2](https://github.com/koningr/faster-rcnn-for-apples/blob/main/images/bad2.jpg)
-![bad_3](https://github.com/koningr/faster-rcnn-for-apples/blob/main/images/bad3.jpg)
-![bad_4](https://github.com/koningr/faster-rcnn-for-apples/blob/main/images/bad4.jpg)
-![good_1](https://github.com/koningr/faster-rcnn-for-apples/blob/main/images/good1.jpg)
-![good_2](https://github.com/koningr/faster-rcnn-for-apples/blob/main/images/good2.jpg)
-![good_3](https://github.com/koningr/faster-rcnn-for-apples/blob/main/images/good3.jpg)
-![good_4](https://github.com/koningr/faster-rcnn-for-apples/blob/main/images/good4.jpg)
+![bad_1](https://github.com/koningr/faster-rcnn-for-apples/blob/main/images/bad1.png)
+![bad_2](https://github.com/koningr/faster-rcnn-for-apples/blob/main/images/bad2.png)
+![bad_3](https://github.com/koningr/faster-rcnn-for-apples/blob/main/images/bad3.png)
+![bad_4](https://github.com/koningr/faster-rcnn-for-apples/blob/main/images/bad4.png)
+![good_1](https://github.com/koningr/faster-rcnn-for-apples/blob/main/images/good1.png)
+![good_2](https://github.com/koningr/faster-rcnn-for-apples/blob/main/images/good2.png)
+![good_3](https://github.com/koningr/faster-rcnn-for-apples/blob/main/images/good3.png)
+![good_4](https://github.com/koningr/faster-rcnn-for-apples/blob/main/images/good4.png)
  
 ### Discussion
 
@@ -83,7 +83,7 @@ From the results it's visible that our simplified implementation performs a lot 
 ## Running 
 The code of this project is provided on: `https://github.com/KoningR/faster-rcnn-for-apples`. In order to run the code, you should have the files and folders adhere to the structure displayed in the screenshot below.
 
-![file_structure](https://github.com/koningr/faster-rcnn-for-apples/blob/main/images/files.jpg)
+![file_structure](https://github.com/koningr/faster-rcnn-for-apples/blob/main/images/files.png)
 
 The `dataset/images` folder contains apple images only and `dataset/annotations` contains the corresponding labels as `csv` files. `train.txt`and `test.txt` contain the desired filenames (without ".png")
 
